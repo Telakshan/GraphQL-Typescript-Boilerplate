@@ -1,3 +1,3 @@
-# Graphql, TypeScript boiler plate code with user authentication
+# Graphql, TypeScript boiler plate code with User authentication
 
 
