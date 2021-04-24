@@ -1,3 +1,4 @@
+import "reflect-metadata";
 import { ApolloServer } from "apollo-server-express";
 import { User } from "./entity/User";
 import connectRedis from "connect-redis";
@@ -5,7 +6,6 @@ import session from "express-session";
 import cors from "cors";
 import path from "path";
 import redis from "redis";
-import "reflect-metadata";
 import express from "express";
 import { __prod__ } from "./constants";
 import { createConnection } from "typeorm";
@@ -13,6 +13,9 @@ import { buildSchema } from "type-graphql";
 import { UserResolver } from "./resolvers/user";
 
 const main = async () => {
+
+  //dropSchema: true,
+
   await createConnection({
     type: "postgres",
     host: "localhost",
