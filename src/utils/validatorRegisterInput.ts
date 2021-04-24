@@ -1,16 +1,21 @@
 import { EmailPasswordInput } from "../resolvers/EmailPasswordInput";
-import { body } from "express-validator";
 
 export const validateRegister = (options: EmailPasswordInput) => {
-  if (!body(options.email).normalizeEmail().isEmail()) {
+  const emailExpression = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
+  const isValidEmail = emailExpression.test(
+    String(options.email).toLowerCase()
+  );
+
+  if (!isValidEmail) {
     return [{ field: "email", message: "Invalid email" }];
   }
 
-  if (!body(options.password).isLength({ min: 5 })) {
+  if (options.password.length < 5) {
     return [
       {
         field: "password",
-        message: "Length must be greater than 4",
+        message: "Invalid",
       },
     ];
   }
